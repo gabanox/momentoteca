@@ -20,6 +20,13 @@
 
 		<link rel="stylesheet" href="/lib/css/zenburn.css">
 		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/pointer.css">
+		<link rel="stylesheet" href="/css/animate.css">
+		<script	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script>
+				
+		</script>
+
 	</head>
 	
 	<body>
@@ -28,7 +35,6 @@
 	
 <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
 <script src="/lib/js/head.min.js"></script>
-
 <script>
 	// Load the main reveal.js script
 	head.js( '/js/reveal.js', function() {
@@ -40,8 +46,10 @@
 		} );
 
 		// Fires when a slide with data-state=customevent is activated
-		Reveal.addEventListener( 'customevent', function() {
-			console.log( '"customevent" has fired' );
+		Reveal.addEventListener( 'slidechanged', function(event) {
+			if(event.currentSlide==6){
+		        $('#fade').fadeIn(2200);
+		    }
 		} );
 
 		// Fires each time a new slide is activated
@@ -124,14 +132,61 @@
 				}
 			});
 			
+			socket.on('acelerometerEvent', function(data){
+				console.log('acelerometerEvent on slide');
+				Reveal.handleOrientationEvent(data);
+			});
 		
 		});
 		
 	} );
+
+/*
+    var initialX = null;
+    var initialY = null;
+
+    var ball = document.getElementById('ball');
+
+    function handleOrientationEvent(event) {
+
+        var x = event.beta ? event.beta : event.y * 90;
+        var y = event.gamma ? event.gamma : event.x * 90;
+
+        window.console && console.info('Raw position: x, y: ', x, y);
+
+        if (!initialX && !initialY) {
+
+            initialX = x;
+            initialY = y;
+
+        } else {
+
+            var positionX = initialX - x;
+            var positionY = initialY - y;
+
+            ball.style.top = (90 + positionX * 5) + 'px';
+            ball.style.left = (90 + positionY * 5) + 'px';
+        }
+    }
+
+    function isEventFired() {
+        if (!initialX && !initialY) {
+            var warningElement = document.getElementById('warning');
+            warningElement.innerText = 'Warning: Cannot receive device orientation events, this browser is not supported.';
+            warningElement.style.display = 'inline-block';
+        }
+    }
+
+    // Webkit en Mozilla variant beide registreren.
+    window.addEventListener("MozOrientation", handleOrientationEvent, true);
+    window.addEventListener("deviceorientation", handleOrientationEvent, true);
+
+    setTimeout(isEventFired, 2000);
+*/
 	
 </script>
-	
-	
+
+
 	</body>
 </html>
 

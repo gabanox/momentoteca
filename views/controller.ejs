@@ -16,9 +16,9 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img class="ctl_btn left" cmd="left" src="/images/arrow_left.png" /></td>
+				<td><img class="ctl_btn left" cmd="backward" src="/images/arrow_left.png" /></td>
 				<td></td>
-				<td><img class="ctl_btn right" cmd="right" src="/images/arrow_right.png" /></td>
+				<td><img class="ctl_btn right" cmd="forward" src="/images/arrow_right.png" /></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -56,6 +56,7 @@
 				
 				// send command to server
 				socket.emit('command', {'id' : whichppt, 'txt': cmd } );
+				console.log('id :' + whichppt + ' txt: ' + cmd);
 				
 			});
 		

@@ -41,10 +41,15 @@ exports.setupRemotePresenter = function(app, io, config){
 		 	if(presentations[data.id])
 		 	{
 		 		console.log('sending init presentation data ' + JSON.stringify(presentations[data.id]) );
-		 		socket.emit('initdata', presentations[data.id]);
+		 		//socket.emit('initdata', presentations[data.id]);
+		 		socket.emit('initdata', presentations['demo']);
 		 	}
 		 });
 		
+		socket.on('acelerometer', function(coordinates){
+			console.log('receiving acelerometer event on socket server');
+		    socket.broadcast.emit('acelerometerEvent', coordinates);
+		});
 		
 		// send commands to make slide go previous/ next/etc
 		// this should be triggered from the remote controller
@@ -66,11 +71,11 @@ exports.setupRemotePresenter = function(app, io, config){
 				{
 					curppt.indexv++;
 				}
-				else if(cmd == 'left')
+				else if(cmd == 'backward')
 				{
 					curppt.indexh--;
 				}
-				else if(cmd == 'right')
+				else if(cmd == 'forward')
 				{
 					curppt.indexh++;
 				}

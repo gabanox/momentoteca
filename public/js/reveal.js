@@ -24,7 +24,7 @@ var Reveal = (function(){
 			loop: false,
 			mouseWheel: true,
 			rollingLinks: true,
-			transition: 'default',
+			transition: 'linear',
 			theme: 'default'
 		},
 
@@ -66,13 +66,16 @@ var Reveal = (function(){
 			startCount: 0,
 			handled: false,
 			threshold: 40
-		};
+		},
+		initialX = null,
+	    initialY = null;
 	
 	
 	/**
 	 * Starts up the slideshow by applying configuration
 	 * options and binding various events.
 	 */
+
 	function initialize( options ) {
 		
 		if( ( !supports2DTransforms && !supports3DTransforms ) || !supportsClassList ) {
@@ -922,6 +925,45 @@ var Reveal = (function(){
 			activateOverview();
 		}
 	}
+
+    var ball = document.getElementById('ball');
+
+    function handleOrientationEvent(event) {
+    	console.log('handleOrientationEvent' + JSON.stringify(event));
+        var x = event.beta ? event.beta : event.y * 90;
+        var y = event.gamma ? event.gamma : event.x * 90;
+
+        window.console && console.info('Raw position: x, y: ', x, y);
+
+        if (!initialX && !initialY) {
+
+            initialX = x;
+            initialY = y;
+
+        } else {
+
+            var positionX = initialX - x;
+            var positionY = initialY - y;
+
+            ball.style.top = (90 + positionX * 5) + 'px';
+            ball.style.left = (90 + positionY * 5) + 'px';
+        }
+    }
+
+    function isEventFired() {
+        if (!initialX && !initialY) {
+        	return;//@check
+            var warningElement = document.getElementById('warning');
+            warningElement.innerText = 'Warning: Cannot receive device orientation events, this browser is not supported.';
+            warningElement.style.display = 'inline-block';
+        }
+    }
+
+    // Webkit en Mozilla variant beide registreren.
+    //window.addEventListener("MozOrientation", handleOrientationEvent, true);
+    //window.addEventListener("deviceorientation", handleOrientationEvent, true);
+
+    setTimeout(isEventFired, 2000);
 	
 	// Expose some methods publicly
 	return {
@@ -934,7 +976,7 @@ var Reveal = (function(){
 		navigatePrev: navigatePrev,
 		navigateNext: navigateNext,
 		toggleOverview: toggleOverview,
-
+		handleOrientationEvent: handleOrientationEvent,
 		addEventListeners: addEventListeners,
 		removeEventListeners: removeEventListeners,
 
@@ -948,4 +990,5 @@ var Reveal = (function(){
 	};
 	
 })();
+
 

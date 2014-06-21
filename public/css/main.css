@@ -994,10 +994,50 @@ body {
 	background: rgba( 0, 0, 0, 0.6 );
 }
 
+.lobo {
+	background-image: url('http://www.lobomexicano.org.mx/Imagenes/lobo%20mexicano%203.jpg');
+}
+
+.back_1{
+	background-image: url('../images/1.png');
+	background-repeat: no-repeat;
+	width: 1024px;
+	height: 768px;
+	background-position: 0 0;
+}
+
+.back_2 {
+	background-image: url('../images/2.png');
+	background-repeat: no-repeat;
+	width: 1024px;
+	height: 768px;
+	background-position: 0 0;
+}
+
+.back_3 {
+	background-image: url('../images/3.png');
+	background-repeat: no-repeat;
+	width: 1024px;
+	height: 768px;
+	background-position: 0 0;
+}
+
+#caperucita {
+	background-image: url('../images/caperucita.png');
+	width: 1024px;
+	height: 768px;
+	position:fixed; bottom:15%; left:25%;
+}
+
+
 /*********************************************
  * SPEAKER NOTES
  *********************************************/
 
 .reveal aside.notes {
 	display: none;
+}
+
+.slide-blue{
+	background-color: blue;
 }
