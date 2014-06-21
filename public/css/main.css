@@ -1022,6 +1022,22 @@ body {
 	background-position: 0 0;
 }
 
+.back_4 {
+	background-image: url('../images/4.png');
+	background-repeat: no-repeat;
+	width: 1024px;
+	height: 768px;
+	background-position: 0 0;
+}
+
+.back_5 {
+	background-image: url('../images/5.png');
+	background-repeat: no-repeat;
+	width: 1024px;
+	height: 768px;
+	background-position: 0 0;
+}
+
 #caperucita {
 	background-image: url('../images/caperucita.png');
 	width: 1024px;
